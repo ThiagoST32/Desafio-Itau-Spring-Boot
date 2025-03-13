@@ -9,8 +9,7 @@ import java.time.OffsetDateTime;
 public class TransactionDTO {
 
     @NotNull
-    @Min(1)
-    @NotBlank
+    @Min(0)
     private double valor;
 
     private OffsetDateTime dataHora;
