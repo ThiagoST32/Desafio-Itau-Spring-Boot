@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
+import java.util.DoubleSummaryStatistics;
 
 @RestController
 @RequestMapping("/transactions")
@@ -29,5 +30,10 @@ public class TransactionController {
         return new ResponseEntity<>(HttpStatus.valueOf(201));
     }
 
+    @GetMapping
+    public ResponseEntity<DoubleSummaryStatistics> getStatisticsTransactions(){
+        DoubleSummaryStatistics summaryStatistics = this.transactionService.getEstatics();
+        return new ResponseEntity<>(summaryStatistics, HttpStatus.OK);
+    }
 
 }

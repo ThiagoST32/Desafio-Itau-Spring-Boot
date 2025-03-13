@@ -2,16 +2,16 @@ package com.desafio.itau.desafioItau.domain;
 
 import java.util.DoubleSummaryStatistics;
 
-public class Estatistica {
+public class Statistics {
 
-    private double count;
-    private double sum;
-    private double avg;
-    private double min;
-    private double max;
+    private final double count;
+    private final double sum;
+    private final double avg;
+    private final double min;
+    private final double max;
 
 
-    public Estatistica(DoubleSummaryStatistics doubleSummaryStatistics){
+    public Statistics(DoubleSummaryStatistics doubleSummaryStatistics){
         this.count = doubleSummaryStatistics.getCount();
         this.sum = doubleSummaryStatistics.getSum();
         this.avg = doubleSummaryStatistics.getAverage();

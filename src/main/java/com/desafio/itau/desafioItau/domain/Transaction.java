@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 public class Transaction {
 
     private double valor = 0;
-    private OffsetDateTime dataHora;
+    private final OffsetDateTime dataHora;
 
     public Transaction(final double valor, final OffsetDateTime dataHora){
         this.valor = valor;
