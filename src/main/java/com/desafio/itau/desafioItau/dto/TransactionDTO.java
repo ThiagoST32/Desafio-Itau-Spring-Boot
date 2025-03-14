@@ -9,9 +9,9 @@ import java.time.OffsetDateTime;
 public class TransactionDTO {
 
     @NotNull
-    @Min(0)
     private double valor;
 
+    @NotNull
     private OffsetDateTime dataHora;
 
     public double getValor() {

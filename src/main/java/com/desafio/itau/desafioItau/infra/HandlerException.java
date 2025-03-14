@@ -1,8 +1,8 @@
 package com.desafio.itau.desafioItau.infra;
 
 
+import com.desafio.itau.desafioItau.infra.Exceptions.BodyEmptyTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.NegativeValueTransactionException;
-import com.desafio.itau.desafioItau.infra.Exceptions.TransactionInTheFutureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,8 +40,8 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(TransactionInTheFutureException.class)
-    public ResponseEntity<ApiError> transactionInTheFutureException(TransactionInTheFutureException ex){
+    @ExceptionHandler(BodyEmptyTransactionException.class)
+    public ResponseEntity<ApiError> bodyEmptyTransactionException(BodyEmptyTransactionException ex){
         ApiError apiError = ApiError
                 .builder()
                 .code(HttpStatus.BAD_REQUEST.value())
@@ -50,5 +50,6 @@ public class HandlerException extends ResponseEntityExceptionHandler {
                 .offsetDateTime(OffsetDateTime.now())
                 .build();
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+
     }
 }

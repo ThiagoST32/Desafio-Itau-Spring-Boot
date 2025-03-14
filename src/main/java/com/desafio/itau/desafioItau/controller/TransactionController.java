@@ -2,8 +2,8 @@ package com.desafio.itau.desafioItau.controller;
 
 import com.desafio.itau.desafioItau.domain.Transaction;
 import com.desafio.itau.desafioItau.dto.TransactionDTO;
+import com.desafio.itau.desafioItau.infra.Exceptions.BodyEmptyTransactionException;
 import com.desafio.itau.desafioItau.service.TransactionService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,8 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Void>createTransaction(@Valid @RequestBody TransactionDTO transactionDTO){
+    public ResponseEntity<Void>createTransaction(@RequestBody TransactionDTO transactionDTO){
+        if (transactionDTO.getDataHora() == null) throw new BodyEmptyTransactionException();
         if (transactionDTO.getDataHora().isAfter(OffsetDateTime.now())){
             return ResponseEntity.unprocessableEntity().build();
         }
@@ -32,8 +33,13 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<DoubleSummaryStatistics> getStatisticsTransactions(){
-        DoubleSummaryStatistics summaryStatistics = this.transactionService.getEstatics();
+        DoubleSummaryStatistics summaryStatistics = this.transactionService.getStatistics();
         return new ResponseEntity<>(summaryStatistics, HttpStatus.OK);
     }
 
+    @DeleteMapping
+    public ResponseEntity<Void>getTransactions(){
+        this.transactionService.clearTransaction();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
