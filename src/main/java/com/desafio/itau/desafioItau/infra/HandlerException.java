@@ -3,6 +3,7 @@ package com.desafio.itau.desafioItau.infra;
 
 import com.desafio.itau.desafioItau.infra.Exceptions.BodyEmptyTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.NegativeValueTransactionException;
+import com.desafio.itau.desafioItau.infra.Exceptions.TransactionInTheFutureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,12 +33,24 @@ public class HandlerException extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiError> negativeValueTransactionException(NegativeValueTransactionException ex){
         ApiError apiError = ApiError
                 .builder()
-                .code(HttpStatus.BAD_REQUEST.value())
-                .status(HttpStatus.BAD_REQUEST.name())
+                .code(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.name())
                 .errors(List.of(ex.getMessage()))
                 .offsetDateTime(OffsetDateTime.now())
                 .build();
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiError, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(TransactionInTheFutureException.class)
+    public ResponseEntity<ApiError> transactionInTheFutureException(TransactionInTheFutureException ex){
+        ApiError apiError = ApiError
+                .builder()
+                .code(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.name())
+                .errors(List.of(ex.getMessage()))
+                .offsetDateTime(OffsetDateTime.now())
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(BodyEmptyTransactionException.class)

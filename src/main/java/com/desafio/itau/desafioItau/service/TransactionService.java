@@ -1,7 +1,6 @@
 package com.desafio.itau.desafioItau.service;
 
 import com.desafio.itau.desafioItau.domain.Transaction;
-import com.desafio.itau.desafioItau.infra.Exceptions.NegativeValueTransactionException;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -16,7 +15,6 @@ public class TransactionService {
 
 
     public void addTransaction(Transaction transaction){
-        if (transaction.getValor() < 0) throw new NegativeValueTransactionException();
         transactions.add(transaction);
     }
 
