@@ -1,7 +1,7 @@
 package com.desafio.itau.desafioItau.infra;
 
 
-import com.desafio.itau.desafioItau.infra.Exceptions.BodyEmptyTransactionException;
+import com.desafio.itau.desafioItau.infra.Exceptions.InvalidBodyTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.NegativeValueTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.TransactionInTheFutureException;
 import org.springframework.http.HttpStatus;
@@ -53,8 +53,8 @@ public class HandlerException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(BodyEmptyTransactionException.class)
-    public ResponseEntity<ApiError> bodyEmptyTransactionException(BodyEmptyTransactionException ex){
+    @ExceptionHandler(InvalidBodyTransactionException.class)
+    public ResponseEntity<ApiError> bodyEmptyTransactionException(InvalidBodyTransactionException ex){
         ApiError apiError = ApiError
                 .builder()
                 .code(HttpStatus.BAD_REQUEST.value())

@@ -1,7 +1,10 @@
 package com.desafio.itau.desafioItau.domain;
 
+import lombok.Getter;
+
 import java.util.DoubleSummaryStatistics;
 
+@Getter
 public class Statistics {
 
     private final double count;
@@ -17,25 +20,5 @@ public class Statistics {
         this.avg = doubleSummaryStatistics.getAverage();
         this.min = doubleSummaryStatistics.getMin();
         this.max = doubleSummaryStatistics.getMax();
-    }
-
-    public double getCount() {
-        return count;
-    }
-
-    public double getSum() {
-        return sum;
-    }
-
-    public double getAvg() {
-        return avg;
-    }
-
-    public double getMin() {
-        return min;
-    }
-
-    public double getMax() {
-        return max;
     }
 }

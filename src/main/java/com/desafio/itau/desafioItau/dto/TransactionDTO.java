@@ -1,24 +1,13 @@
 package com.desafio.itau.desafioItau.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
 import java.time.OffsetDateTime;
 
+@Getter
 public class TransactionDTO {
 
-    @NotNull
-    private double valor;
+    private Double valor;
 
-    @NotNull
     private OffsetDateTime dataHora;
-
-    public double getValor() {
-        return valor;
-    }
-
-    public OffsetDateTime getDataHora() {
-        return dataHora;
-    }
 }

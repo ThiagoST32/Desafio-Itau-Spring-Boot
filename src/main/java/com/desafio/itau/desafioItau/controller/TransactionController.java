@@ -2,7 +2,7 @@ package com.desafio.itau.desafioItau.controller;
 
 import com.desafio.itau.desafioItau.domain.Transaction;
 import com.desafio.itau.desafioItau.dto.TransactionDTO;
-import com.desafio.itau.desafioItau.infra.Exceptions.BodyEmptyTransactionException;
+import com.desafio.itau.desafioItau.infra.Exceptions.InvalidBodyTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.NegativeValueTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.TransactionInTheFutureException;
 import com.desafio.itau.desafioItau.service.TransactionService;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
-import java.util.DoubleSummaryStatistics;
 
 @RestController
 @RequestMapping("/transactions")
@@ -23,22 +22,16 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Void>createTransaction(@RequestBody TransactionDTO transactionDTO){
-        if (transactionDTO.getDataHora() == null) throw new BodyEmptyTransactionException();
+        if (transactionDTO.getDataHora() == null || transactionDTO.getValor() == null) throw new InvalidBodyTransactionException();
         if (transactionDTO.getValor() < 0) throw new NegativeValueTransactionException();
         if (transactionDTO.getDataHora().isAfter(OffsetDateTime.now())) throw new TransactionInTheFutureException();
         this.transactionService.addTransaction(new Transaction(transactionDTO.getValor(), transactionDTO.getDataHora()));
         return new ResponseEntity<>(HttpStatus.valueOf(201));
     }
 
-    @GetMapping
-    public ResponseEntity<DoubleSummaryStatistics> getStatisticsTransactions(){
-        DoubleSummaryStatistics summaryStatistics = this.transactionService.getStatistics();
-        return new ResponseEntity<>(summaryStatistics, HttpStatus.OK);
-    }
-
-    @DeleteMapping
+    @DeleteMapping("/deleteTransactions")
     public ResponseEntity<Void>getTransactions(){
         this.transactionService.clearTransaction();
         return new ResponseEntity<>(HttpStatus.OK);

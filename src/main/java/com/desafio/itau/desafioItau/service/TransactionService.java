@@ -13,7 +13,6 @@ public class TransactionService {
 
     private final Queue<Transaction> transactions = new ConcurrentLinkedQueue<>();
 
-
     public void addTransaction(Transaction transaction){
         transactions.add(transaction);
     }
@@ -22,11 +21,20 @@ public class TransactionService {
         transactions.clear();
     }
 
-    public DoubleSummaryStatistics getStatistics(){
+    public DoubleSummaryStatistics getStatistics60Seconds(){
         OffsetDateTime now = OffsetDateTime.now();
 
         return this.transactions.stream()
                 .filter(t -> t.getDataHora().isBefore(now.minusSeconds(60)))
+                .mapToDouble(Transaction::getValor)
+                .summaryStatistics();
+    }
+
+    public DoubleSummaryStatistics getStatistics120Seconds(){
+        OffsetDateTime now = OffsetDateTime.now();
+
+        return this.transactions.stream()
+                .filter(t -> t.getDataHora().isBefore(now.minusSeconds(120)))
                 .mapToDouble(Transaction::getValor)
                 .summaryStatistics();
     }
