@@ -4,6 +4,8 @@ package com.desafio.itau.desafioItau.infra;
 import com.desafio.itau.desafioItau.infra.Exceptions.InvalidBodyTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.NegativeValueTransactionException;
 import com.desafio.itau.desafioItau.infra.Exceptions.TransactionInTheFutureException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,9 +18,11 @@ import java.util.List;
 @RestControllerAdvice
 public class HandlerException extends ResponseEntityExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(HandlerException.class);
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> genericException(Exception ex){
+        logger.error("Chamando tratamento de exceções genéricas! (HandlerException)");
         ApiError apiError = ApiError
                 .builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
@@ -31,6 +35,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NegativeValueTransactionException.class)
     public ResponseEntity<ApiError> negativeValueTransactionException(NegativeValueTransactionException ex){
+        logger.error("Chamando tratamento de exceção sobre valores negativos na trasação! (HandlerException)");
         ApiError apiError = ApiError
                 .builder()
                 .code(HttpStatus.UNPROCESSABLE_ENTITY.value())
@@ -43,6 +48,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(TransactionInTheFutureException.class)
     public ResponseEntity<ApiError> transactionInTheFutureException(TransactionInTheFutureException ex){
+        logger.error("Chamando tratamento de exceção sobre transação ocorrendo no futuro! (HandlerException)");
         ApiError apiError = ApiError
                 .builder()
                 .code(HttpStatus.UNPROCESSABLE_ENTITY.value())
@@ -55,6 +61,7 @@ public class HandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidBodyTransactionException.class)
     public ResponseEntity<ApiError> bodyEmptyTransactionException(InvalidBodyTransactionException ex){
+        logger.error("Chamando tratamento de exceção sobre body invalido enviado! (HandlerException)");
         ApiError apiError = ApiError
                 .builder()
                 .code(HttpStatus.BAD_REQUEST.value())

@@ -1,0 +1,21 @@
+<configuration>
+    <property name="LOG_DIR" value="logs/desafio-itau-api.log"/>
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>LOG_API</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/desafio-itau-api.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
+            <totalSizeCap>1GB</totalSizeCap>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d %p %c{1}. [%t] %m%n</pattern>
+        </encoder>
+    </appender>
+    <Logger name="com.desafio.itau.desafioItau" level="debug" additivity="false">
+        <appender-ref ref="FILE-ROLLING"/>
+    </Logger>
+    <root level="info">
+        <appender-ref ref="FILE-ROLLING"/>
+    </root>
+</configuration>
