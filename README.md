@@ -46,6 +46,29 @@ Use tools like Postman or Insomnia to interact with the endpoints.
 |  :-------------------------------- |
 |  **Required**. Returns transactions whitin 120 seconds.  |
 
+```http
+  GET /actuator
+```
+
+| Description                       |
+|  :-------------------------------- |
+|  **Required**. Returns all available application health endpoints.  |
+
+```http
+  GET /actuator/metrics
+```
+
+| Description                       |
+|  :-------------------------------- |
+|  **Required**. Returns application metrics.  |
+
+```http
+  GET /actuator/health
+```
+
+| Description                       |
+|  :-------------------------------- |
+|  **Required**. Returns the application's health status.  |
 
 ## Installation
 Clone the repository
