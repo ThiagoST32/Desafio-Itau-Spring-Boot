@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "efd5a004-e84d-43a7-97c6-aea8ef0488e0",
+		"name": "Banco_Itau_Desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32975872"
+	},
+	"item": [
+		{
+			"name": "DeleteTransactions",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/transactions/deleteTransactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"deleteTransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddTransaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"valor\": 50,\r\n    \"dataHora\": \"2025-04-02T02:52:00.448611513-04:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transactions/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStatisticsTransactionsIn60Seconds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/statistics/60",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistics",
+						"60"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStatisticsTransactionsIn120Seconds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/statistics/120",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistics",
+						"120"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/actuator",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActuatorCheckMetrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/actuator/metrics",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActuatorHealfCheck",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/actuator/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActuatorCheckInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/actuator/metrics",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
